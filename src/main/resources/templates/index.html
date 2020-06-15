@@ -3,9 +3,8 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/jquery-migrate.min.js}" ></script>
 <script type="text/javascript" th:src="@{/js/custom.js}"> </script>
 
 
@@ -141,7 +140,7 @@
 
 								<input type="text" style="display: none" name="mytext[]">
 								<img id="image"
-									src="https://www.w3schools.com/howto/img_snow_wide.jpg"
+									src="../img/img_snow_wide.jpg"
 									alt="Snow" style="width: 100%;">
 								<div class="bottom-left">Bottom Left</div>
 								<div class="top-left">Top Left</div>
