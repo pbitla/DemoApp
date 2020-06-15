@@ -57,7 +57,7 @@
 						<br /> 
 						<div style="display: inline-flex;">
 							<div th:each="lines2 : ${question.dragOptions}" >
-								<div class="draggable" id="x" draggable="true" ondragstart="drag(event)" th:text= "${lines2}"></div> 
+								<div class="draggable" id="${stats.index + 1}" draggable="true" ondragstart="drag(event)" th:text= "${lines2}"></div> 
 							</div>
 						</div>
 						<br /> 
