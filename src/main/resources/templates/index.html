@@ -1,15 +1,168 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Spring Boot Thymeleaf Hello World Example</title>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
+<script type="text/javascript" th:src="@{/js/custom.js}"> </script>
 
+
+ 
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/css/custom.css}" />
 
 </head>
-<body>
-	<p>Get your greeting</p>
-	<a th:href="@{/greeting}">here</a>
+<body style="background-color: #4c4848">
+	<form th:action="@{addQuestion}" method="POST" th:object="${foo}">
+
+		<div id="questionForm" class="split right">
+			<div th:each="entry, stats : ${questions}" th:with="question=${entry.value}">
+				 <div th:switch="${question.questionType}">
+					<div th:case="1" style="border: 1px solid black">
+						<div style="display: inline-flex;">
+							<div  th:text="${stats.index + 1} +'). '" > </div>
+								<div th:each="lines : ${question.fItB}" >
+									<input type="text" th:if="${lines eq '[]'}" style="border-top-style: hidden; border-right-style: hidden;  border-left-style: hidden;"/>
+									<p th:text="${lines}" th:unless="${lines eq '[]'}" style="margin-top: 0px;"></p>
+								</div>
+							  ?.  
+						</div>
+					</div>
+					<div th:case="2" style="border: 1px solid black">
+						<div style="display: inline-flex;">
+							<div  th:text="${stats.index + 1} +'). '" > </div>
+							<p th:text="${question.mulitpleChoiceQInfo}" style="margin-top: 0px;"> </p>
+							 ?. 
+						</div>
+						<br> 
+						<div style="display: inline-flex;">
+							 <input type="radio" id="option1"  th:value="${question.option1}"> <label th:for="option1" th:text="${question.option1}"></label>
+							 <input type="radio" id="option2"  th:value="${question.option2}"> <label th:for="option2" th:text="${question.option2}"></label>
+							 <input type="radio" id="option3"  th:value="${question.option3}"> <label th:for="option3" th:text="${question.option3}"></label>
+							 <input type="radio" id="option4"  th:value="${question.option4}"> <label th:for="option4" th:text="${question.option4}"></label>
+						</div>
+					</div>
+					<div th:case="3" style="border: 1px solid black">
+						<div style="display: inline-flex;">
+							<div  th:text="${stats.index + 1} +'). '" > </div>
+							
+							<div th:each="lines1 : ${question.fItB}" >
+							<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"   th:if="${lines1 eq '[]'}" 
+								style="display: inline-block;min-width: 25px;	min-height: 10px;border-style: solid;border-width: 0px;	border-bottom-width: 2px;"></div>
+								<p th:text="${lines1}" th:unless="${lines1 eq '[]'}" style="margin-top: 0px;"></p>
+							</div>
+							?. 
+						</div>
+						<br /> 
+						<div style="display: inline-flex;">
+							<div th:each="lines2 : ${question.dragOptions}" >
+								<div class="draggable" id="x" draggable="true" ondragstart="drag(event)" th:text= "${lines2}"></div> 
+							</div>
+						</div>
+						<br /> 
+						<br /> 
+					</div>
+					<div th:case="4" style="border: 1px solid black">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="questionForm" class="split left"
+		style="background-color: #4c4848">
+
+	
+			<div class="container">
+				<fieldset>
+					<legend>Select Question Type</legend>
+						<label for="cars">Choose Question Type:</label> 
+						<select id="qs" th:field="${foo.questionType}"  >
+							<option value="">Select Question Type</option>
+							<option value="1">Fill in the blank</option>
+							<option value="2">Multiple choice Questions</option>
+							<option value="3">Fill in the blank with Draggable</option>
+							<option value="4">Image Question</option>
+						</select>
+					<button onclick="enableQuestion()">Enter Question Info</button>
+					
+					<br/>
+					<br/>
+					<div id="fitbq" style="display: none;">
+						<textarea id="w3review"  rows="10" cols="50" th:field="${foo.fillInTheBlankInfo}"> </textarea>
+					</div>
+
+					<div id="dragfitbq" style="display: none;">
+						<div class="container">
+						 	<textarea id="w3review1"  rows="10" cols="50" th:field="${foo.fillInTheBlankInfoDrg}"> </textarea>
+							<textarea id="w3review3"  rows="10" cols="50" th:field="${foo.fillInTheBlankInfoDrgOptions}" placeholder=" Enter the Options , Seperated"> </textarea>
+						</div>
+						<span class="draggable" id="drag1" draggable="true" ondragstart="drag(event)">drag</span> 
+						<span class="draggable" id="drag2" draggable="true" ondragstart="drag(event)">drop</span>
+						<span class="draggable" id="drag2" draggable="true" ondragstart="drag(event)">drotestp</span>
+						<br /> 
+						This is a sample 
+						<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"  
+						style="display: inline-block;min-width: 25px;	min-height: 10px;border-style: solid;border-width: 0px;	border-bottom-width: 2px;"></div>
+						and
+						<div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"
+						 style="display: inline-block;min-width: 25px;	min-height: 10px;border-style: solid;border-width: 0px;	border-bottom-width: 2px;"></div>
+						sentence.
+						<div id="div3" ondrop="drop(event)" ondragover="allowDrop(event)"
+						 style="display: inline-block;min-width: 25px;	min-height: 10px;border-style: solid;border-width: 0px;	border-bottom-width: 2px;"></div>
+					</div>
+
+					<div id="mcq" style="display: none;">
+						<textarea id="w3review" name="w3review" rows="4" cols="50" th:field="${foo.mulitpleChoiceQInfo}"> Enter your Question Here !!! </textarea>
+						<br> 
+						<img th:src="@{/img/radiobutton.png}" width="12" height="12"> <input type="text" id="option1" th:field="${foo.option1}"> 
+						<img th:src="@{/img/radiobutton.png}" width="12" height="12"> <input type="text" id="option1" th:field="${foo.option2}"> 
+						<img th:src="@{/img/radiobutton.png}" width="12" height="12"> <input type="text" id="option1" th:field="${foo.option3}"> 
+						<img th:src="@{/img/radiobutton.png}" width="12" height="12"> <input type="text" id="option1" th:field="${foo.option4}">
+					</div>
+
+					<div id="imgq" style="display: none;">
+						<div class="input_fields_wrap">
+							<div style="background-color: lightgray">
+								<div id="height1"></div>
+								<div id="width1"></div>
+							</div>
+
+							<div class="container">
+
+								<label> Height: <input type="text"
+									placeholder="Enter Height" name="email" id="height">
+								</label> <label>Width: <input type="text"
+									placeholder="Enter Width" name="email" id="width">
+								</label>
+
+								<button class="add_field_button">Add More Fields</button>
+
+								<input type="text" style="display: none" name="mytext[]">
+								<img id="image"
+									src="https://www.w3schools.com/howto/img_snow_wide.jpg"
+									alt="Snow" style="width: 100%;">
+								<div class="bottom-left">Bottom Left</div>
+								<div class="top-left">Top Left</div>
+								<div class="top-right">Top Right</div>
+								<div class="bottom-right">Bottom Right</div>
+								<div class="centered">Centered</div>
+
+							</div>
+						</div>
+
+
+					</div>
+
+
+				</fieldset>
+
+			</div>
+			<button style="align-content: center;">Add to Question Form</button>
+		
+	</div>
+	</form>
 </body>
+
 </html>
