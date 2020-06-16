@@ -24,7 +24,7 @@
 							<div  th:text="${stats.index + 1} +'). '" > </div>
 								<div th:each="lines : ${question.fItB}" >
 									<input type="text" th:if="${lines eq '[]'}" style="border-top-style: hidden; border-right-style: hidden;  border-left-style: hidden;"/>
-									<p th:text="${lines}" th:unless="${lines eq '[]'}" style="margin-top: 0px;"></p>
+									<p th:text="${lines} +' '" th:unless="${lines eq '[]'}" style="margin-top: 0px;"></p>
 								</div>
 							  ?.  
 						</div>
@@ -48,16 +48,16 @@
 							<div  th:text="${stats.index + 1} +'). '" > </div>
 							
 							<div th:each="lines1 : ${question.fItB}" >
-							<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"   th:if="${lines1 eq '[]'}" 
+							<div th:id="${stats.index + 1}+'_dragfields'+ ${lines1}" ondrop="drop(event)" ondragover="allowDrop(event)"   th:if="${lines1 eq '[]'}" 
 								style="display: inline-block;min-width: 25px;	min-height: 10px;border-style: solid;border-width: 0px;	border-bottom-width: 2px;"></div>
-								<p th:text="${lines1}" th:unless="${lines1 eq '[]'}" style="margin-top: 0px;"></p>
+								<p th:text="' '+ ${lines1} +' '" th:unless="${lines1 eq '[]'}" style="margin-top: 0px;"></p>
 							</div>
 							?. 
 						</div>
 						<br /> 
 						<div style="display: inline-flex;">
 							<div th:each="lines2 : ${question.dragOptions}" >
-								<div class="draggable" id="${stats.index + 1}" draggable="true" ondragstart="drag(event)" th:text= "${lines2}"></div> 
+								<div class="draggable" th:id="${stats.index + 1}+'_dragopt'+${lines2}" draggable="true" ondragstart="drag(event)" th:text= "${lines2}"></div> 
 							</div>
 						</div>
 						<br /> 
@@ -69,8 +69,7 @@
 			</div>
 		</div>
 
-		<div id="questionForm" class="split left"
-		style="background-color: #4c4848">
+		<div id="questionForm" class="split left" style="background-color: #4c4848">
 
 	
 			<div class="container">
